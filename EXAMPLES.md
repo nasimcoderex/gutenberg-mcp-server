@@ -1,471 +1,450 @@
-# Usage Examples
+# Gutenberg MCP Server - Usage Examples
 
-Real-world examples of using the Gutenberg MCP Server.
+This document provides practical examples of using the Gutenberg MCP Server with AI assistants.
 
-## Example 1: Replicate a Complete Page Design
+## Table of Contents
 
-**Goal:** Copy the design from a reference site to your WordPress site.
+- [Basic Page Creation](#basic-page-creation)
+- [Design Replication](#design-replication)
+- [Page Management](#page-management)
+- [Advanced Layouts](#advanced-layouts)
+- [Real-World Examples](#real-world-examples)
 
-**Prompt:**
-```
-Analyze this reference page: https://rek433bjmg-staging.onrocket.site/ugc-for-woocommerce/
-```
+## Basic Page Creation
 
-**Response:** The AI extracts all blocks with complete styling information.
-
-**Next Prompt:**
-```
-Create a new page titled "UGC for WooCommerce" using all the blocks from the analysis. Set status to draft.
-```
-
-**Result:** A new draft page is created with the same design, layout, colors, and structure.
-
-**Verify:**
-```
-Get the page we just created and show me its URL
-```
-
-**Compare:**
-Visit both URLs side-by-side to verify the design matches.
-
----
-
-## Example 2: Create a Landing Page from Scratch
+### Simple Page with Text
 
 **Prompt:**
 ```
-Create a new WordPress page titled "Product Launch" with:
-
-1. A centered hero heading "Introducing Our New Product"
-2. A centered paragraph with description
-3. A full-width image from https://placehold.co/1200x600
-4. A two-column layout with:
-   - Left column: "Feature 1" heading and description
-   - Right column: "Feature 2" heading and description
-5. A centered call-to-action paragraph with a link
-6. Set status to draft
+Create a WordPress page titled "Welcome" with a heading "Hello World" and a paragraph saying "This is my first page created with MCP."
 ```
 
-**Result:** A structured landing page with all requested elements.
+**What happens:**
+- AI uses `create_page` tool
+- Creates proper WordPress block format
+- Returns page ID and URL
 
----
-
-## Example 3: Update an Existing Page
+### Page with Multiple Sections
 
 **Prompt:**
 ```
-Get page ID 42 and show me its current content
+Create a page titled "Services" with:
+- A centered heading "Our Services"
+- Three columns with service descriptions
+- A call-to-action button at the bottom
 ```
 
-**Review the content, then:**
-```
-Update page ID 42:
-- Change the title to "Updated Product Page"
-- Keep all existing blocks but add a new paragraph at the end: "Contact us for more information"
-```
+**Result:**
+- Heading block with center alignment
+- Columns block with 3 columns
+- Button block with styling
 
----
+## Design Replication
 
-## Example 4: Batch Create Multiple Pages
-
-**Prompt:**
-```
-Create 3 new pages:
-
-1. "Services" page with:
-   - Heading "Our Services"
-   - Paragraph describing services
-   - Status: draft
-
-2. "Portfolio" page with:
-   - Heading "Our Work"
-   - Paragraph about portfolio
-   - Status: draft
-
-3. "Contact" page with:
-   - Heading "Get In Touch"
-   - Paragraph with contact info
-   - Status: draft
-```
-
----
-
-## Example 5: Clone and Customize
+### Replicate from Reference URL
 
 **Prompt:**
 ```
-Analyze https://example.com/reference-page
-Then create a new page with the same structure but:
-- Change the title to "My Custom Page"
-- Replace all images with placeholders from https://placehold.co/
-- Change the hero heading text to "Welcome to My Site"
+Analyze this page: https://example.com/landing-page
+Then create a new page with the same design
 ```
 
----
+**Process:**
+1. AI calls `analyze_reference_page` with the URL
+2. Extracts all blocks, styling, and structure
+3. Calls `create_page` with extracted blocks
+4. Returns new page URL
 
-## Example 6: Extract and Reuse Sections
-
-**Prompt:**
-```
-Analyze https://example.com/homepage
-Show me just the hero section blocks
-```
-
-**Then:**
-```
-Create a new page titled "New Landing Page" using only the hero section blocks from the analysis
-```
-
----
-
-## Example 7: Compare Two Designs
+### Replicate with Modifications
 
 **Prompt:**
 ```
-Analyze these two pages:
-1. https://example.com/page1
-2. https://example.com/page2
-
-Tell me the differences in their block structure and styling
+Analyze https://example.com/about
+Create a similar page but:
+- Change the title to "About Our Company"
+- Replace images with placeholders
+- Update the contact email
 ```
 
----
+**Process:**
+- Analyzes reference page
+- Modifies extracted content
+- Creates new page with changes
 
-## Example 8: Preview Before Creating
+## Page Management
 
-**Prompt:**
-```
-I want to create a page with these blocks:
-- Heading level 1: "Welcome"
-- Paragraph: "This is my site"
-- Image from https://placehold.co/800x400
-
-First, render these blocks to show me the HTML preview
-```
-
-**After reviewing:**
-```
-Looks good! Now create the page with title "Welcome Page" and status "publish"
-```
-
----
-
-## Example 9: Work with Custom Blocks
+### List All Pages
 
 **Prompt:**
 ```
-List all block types available on my WordPress site
+Show me all pages on my WordPress site
 ```
 
-**Review the list, then:**
-```
-Create a page using the "acf/testimonial" block with:
-- name: "John Doe"
-- rating: 5
-- text: "Great product!"
+**AI Action:**
+```json
+{
+  "tool": "list_pages",
+  "arguments": {
+    "per_page": 50
+  }
+}
 ```
 
----
-
-## Example 10: Fix a Broken Design
+### Search for Specific Pages
 
 **Prompt:**
 ```
-I created a page at http://wpfunnels.local/my-page/ but the design doesn't match the reference at https://example.com/reference
-
-Analyze both pages and tell me what's different
+Find all pages with "product" in the title
 ```
 
-**After analysis:**
-```
-Update my page to match the reference design exactly
+**AI Action:**
+```json
+{
+  "tool": "list_pages",
+  "arguments": {
+    "search": "product"
+  }
+}
 ```
 
----
-
-## Example 11: Responsive Layout
+### Get Page Details
 
 **Prompt:**
 ```
-Create a page titled "Responsive Grid" with a 3-column layout:
-- Each column should have a heading and paragraph
-- Add appropriate spacing and alignment
-- Make it mobile-friendly
+Show me the content of page ID 42
 ```
 
----
+**AI Action:**
+```json
+{
+  "tool": "get_page",
+  "arguments": {
+    "id": 42
+  }
+}
+```
 
-## Example 12: Style Variations
+### Update Existing Page
 
 **Prompt:**
 ```
-Create a page titled "Style Test" with:
-- A heading with primary color and center alignment
-- A paragraph with light gray background
-- An image with rounded corners
-- A quote block with custom styling
+Update page 42:
+- Change title to "New Title"
+- Add a paragraph at the end saying "Updated on 2024"
 ```
 
----
+**AI Action:**
+- Gets current page content
+- Modifies the content
+- Calls `update_page` with new content
 
-## Example 13: Search and Update
+### Delete Page
 
 **Prompt:**
 ```
-Find all pages containing "product" in the title
+Move page 42 to trash
 ```
 
-**Review results:**
-```
-Update page ID 15 to add a new section at the end with latest product updates
+**AI Action:**
+```json
+{
+  "tool": "delete_page",
+  "arguments": {
+    "id": 42,
+    "force": false
+  }
+}
 ```
 
----
+## Advanced Layouts
 
-## Example 14: Duplicate a Page
+### Multi-Column Layout
 
 **Prompt:**
 ```
-Get page ID 42 with all its blocks
+Create a page with a 3-column layout:
+- Column 1: Icon and "Fast" heading
+- Column 2: Icon and "Secure" heading  
+- Column 3: Icon and "Reliable" heading
+Each with a description paragraph
 ```
 
-**Then:**
-```
-Create a new page titled "Copy of [Original Title]" with the exact same blocks
+**Generated Content:**
+```html
+<!-- wp:columns -->
+<div class="wp-block-columns">
+  <!-- wp:column -->
+  <div class="wp-block-column">
+    <!-- wp:paragraph -->
+    <p style="font-size:2rem">⚡</p>
+    <!-- /wp:paragraph -->
+    
+    <!-- wp:heading {"level":3} -->
+    <h3>Fast</h3>
+    <!-- /wp:heading -->
+    
+    <!-- wp:paragraph -->
+    <p>Lightning-fast performance for your users.</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+  
+  <!-- Similar for other columns -->
+</div>
+<!-- /wp:columns -->
 ```
 
----
-
-## Example 15: Merge Multiple Designs
+### Full-Width Sections with Background Colors
 
 **Prompt:**
 ```
-Create a new page titled "Combined Design" with:
-- Hero section from https://example.com/page1
-- Features section from https://example.com/page2  
-- Footer from https://example.com/page3
-
-Analyze each page first, then combine the sections
+Create a landing page with:
+- Full-width hero section with dark background
+- Full-width features section with light gray background
+- Full-width CTA section with blue background
 ```
 
----
+**Generated Content:**
+```html
+<!-- wp:group {"align":"full","style":{"color":{"background":"#0a0a0a"}}} -->
+<div class="wp-block-group alignfull has-background" style="background-color:#0a0a0a">
+  <!-- Hero content -->
+</div>
+<!-- /wp:group -->
 
-## Advanced Example: Complete Workflow
-
-**Step 1: Research**
-```
-List all my draft pages
-```
-
-**Step 2: Analyze Reference**
-```
-Analyze https://rek433bjmg-staging.onrocket.site/ugc-for-woocommerce/
-How many blocks were found? What types?
-```
-
-**Step 3: Check Compatibility**
-```
-List block types on my site
-Do I have all the blocks needed for the reference page?
+<!-- wp:group {"align":"full","style":{"color":{"background":"#f9fafb"}}} -->
+<div class="wp-block-group alignfull has-background" style="background-color:#f9fafb">
+  <!-- Features content -->
+</div>
+<!-- /wp:group -->
 ```
 
-**Step 4: Create**
-```
-Create a new page titled "UGC for WooCommerce" with all blocks from the analysis
-Set status to draft
-```
-
-**Step 5: Review**
-```
-Get the page we just created
-Show me its URL and block count
-```
-
-**Step 6: Compare**
-```
-Open both URLs:
-- Reference: https://rek433bjmg-staging.onrocket.site/ugc-for-woocommerce/
-- New page: http://wpfunnels.local/ugc-for-woocommerce/
-
-Do they look the same?
-```
-
-**Step 7: Refine (if needed)**
-```
-The hero section background color looks different
-Update the page to match the reference exactly
-```
-
-**Step 8: Publish**
-```
-Update the page status to "publish"
-```
-
-**Step 9: Verify**
-```
-Get page ID [X] to confirm it's published
-```
-
----
-
-## Tips for Effective Prompts
-
-### ✅ Good Prompts
-
-- "Analyze this page: [URL]"
-- "Create a page with these specific blocks..."
-- "Update page ID 42 to change the title"
-- "Show me all draft pages"
-- "List available block types"
-
-### ❌ Avoid Vague Prompts
-
-- "Make it look nice" (be specific about what you want)
-- "Fix the page" (explain what's wrong)
-- "Add some content" (specify what content)
-
-### 💡 Pro Tips
-
-1. **Always analyze before replicating** - Don't guess the structure
-2. **Create as draft first** - Review before publishing
-3. **Be specific with styling** - Mention colors, alignment, spacing
-4. **Use block names correctly** - Check available blocks first
-5. **Test incrementally** - Start simple, then add complexity
-
----
-
-## Troubleshooting Examples
-
-### Problem: Design Doesn't Match
+### Nested Groups and Containers
 
 **Prompt:**
 ```
-Analyze both pages:
-1. Reference: https://example.com/reference
-2. My page: http://wpfunnels.local/my-page
-
-Show me the differences in block structure and attributes
+Create a page with a card layout:
+- Container with padding and border
+- Inside: heading, paragraph, and button
+- White background with shadow
 ```
 
-### Problem: Missing Blocks
+**Generated Content:**
+```html
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"24px","bottom":"24px","left":"24px","right":"24px"}},"color":{"background":"#ffffff"},"border":{"radius":"8px"}}} -->
+<div class="wp-block-group has-background" style="background-color:#ffffff;border-radius:8px;padding:24px">
+  <!-- wp:heading {"level":3} -->
+  <h3>Card Title</h3>
+  <!-- /wp:heading -->
+  
+  <!-- wp:paragraph -->
+  <p>Card description text goes here.</p>
+  <!-- /wp:paragraph -->
+  
+  <!-- wp:button -->
+  <div class="wp-block-button">
+    <a class="wp-block-button__link">Learn More</a>
+  </div>
+  <!-- /wp:button -->
+</div>
+<!-- /wp:group -->
+```
+
+## Real-World Examples
+
+### Example 1: Product Landing Page
 
 **Prompt:**
 ```
-The reference page uses blocks I don't have
-List block types on my site
-What alternatives can I use?
+Create a product landing page for "SuperWidget Pro" with:
+- Hero section: product name, tagline, CTA button
+- Features section: 3 columns with icons
+- Pricing section: price and buy button
+- FAQ section: 5 common questions
 ```
 
-### Problem: Images Not Loading
+**AI Process:**
+1. Creates hero with group block (dark background)
+2. Creates features with columns block
+3. Creates pricing with centered content
+4. Creates FAQ with heading and paragraph blocks
+5. Returns draft page for review
+
+### Example 2: Blog Post Template
 
 **Prompt:**
 ```
-Get page ID 42
-Replace all external image URLs with placeholders from https://placehold.co/
+Create a blog post page titled "10 Tips for Better Productivity" with:
+- Featured image placeholder
+- Introduction paragraph
+- 10 numbered sections with headings and content
+- Author bio at the end
 ```
 
-### Problem: Colors Wrong
+**AI Process:**
+1. Creates image block
+2. Creates intro paragraph
+3. Creates 10 heading + paragraph combinations
+4. Creates author bio section with group block
+5. Returns formatted page
+
+### Example 3: Contact Page
 
 **Prompt:**
 ```
-Update page ID 42
-Change all primary color references to match my theme's primary color
+Create a contact page with:
+- Heading "Get in Touch"
+- Two columns: contact info on left, form placeholder on right
+- Office address, phone, email
+- Map placeholder
 ```
 
----
+**AI Process:**
+1. Creates centered heading
+2. Creates 2-column layout
+3. Left column: contact details with icons
+4. Right column: form placeholder
+5. Adds map placeholder below
+6. Returns page with proper structure
 
-## Integration Examples
+### Example 4: Analytics Dashboard
 
-### With Kiro
-
-In Kiro, you can create hooks to automate page creation:
-
+**Prompt:**
 ```
-Create a hook that analyzes a reference URL whenever I create a new page
-```
-
-### With Claude Desktop
-
-Use the MCP directly in conversations:
-
-```
-I need to create 5 landing pages for different products
-Let's start by analyzing this reference design: [URL]
-Then we'll customize it for each product
+Create an analytics dashboard page with:
+- Header with date range and CTA button
+- 5 metric cards showing revenue, orders, etc.
+- Performance comparison cards
+- Data table with top products
 ```
 
-### With VSCode
+**AI Process:**
+1. Creates header with flex layout
+2. Creates 5-column layout for metrics
+3. Creates 3-column layout for comparisons
+4. Creates table block with data
+5. Applies proper styling and spacing
+6. Returns professional dashboard page
 
-Use the MCP while coding:
+### Example 5: Team Page
 
+**Prompt:**
 ```
-While I'm working on the theme, create test pages with different block combinations
-```
-
----
-
-## Real-World Scenarios
-
-### Scenario 1: Agency Workflow
-
-**Goal:** Create 10 client pages based on approved designs
-
-```
-Analyze the approved design: [URL]
-Create 10 pages with this structure:
-1. "About Us" - customize heading and content
-2. "Services" - customize heading and content
-[...continue for all 10]
+Create a team page with:
+- Heading "Meet Our Team"
+- Grid of team members (4 columns)
+- Each member: photo, name, title, bio
 ```
 
-### Scenario 2: A/B Testing
+**AI Process:**
+1. Creates centered heading
+2. Creates columns block (4 columns)
+3. Each column: image, heading, paragraph
+4. Applies consistent styling
+5. Returns team page layout
 
-**Goal:** Create variations of a landing page
+## Tips for Best Results
 
+### Be Specific
+❌ "Create a page"
+✅ "Create a page titled 'About Us' with a heading, 3 paragraphs, and a contact button"
+
+### Describe Layout Clearly
+❌ "Make it look nice"
+✅ "Use a 2-column layout with image on left and text on right"
+
+### Specify Colors and Styling
+❌ "Add some color"
+✅ "Use dark background (#0a0a0a) for hero section and light gray (#f9fafb) for features"
+
+### Reference Examples
+❌ "Make it like other sites"
+✅ "Analyze https://example.com/page and create similar layout"
+
+### Iterate and Refine
+1. Create initial page as draft
+2. Review in WordPress editor
+3. Ask AI to update specific sections
+4. Publish when satisfied
+
+## Common Patterns
+
+### Hero Section Pattern
 ```
-Get page ID 42 (original landing page)
-Create 3 variations:
-- Variation A: Different hero heading
-- Variation B: Different CTA button text  
-- Variation C: Different image
+Full-width group with:
+- Dark background
+- Centered heading (large)
+- Centered paragraph (medium)
+- Centered button
+- Padding top and bottom
 ```
 
-### Scenario 3: Content Migration
-
-**Goal:** Move pages from old site to new site
-
+### Feature Grid Pattern
 ```
-Analyze these pages from the old site:
-1. [URL1]
-2. [URL2]
-3. [URL3]
-
-Create equivalent pages on the new site with the same content and structure
+Columns block (3 or 4 columns) with:
+- Icon/emoji in each column
+- Heading
+- Description paragraph
+- Consistent padding
 ```
 
-### Scenario 4: Template Library
-
-**Goal:** Build reusable page templates
-
+### CTA Section Pattern
 ```
-Create template pages:
-1. "Template: Product Page" - standard product layout
-2. "Template: Service Page" - standard service layout
-3. "Template: Landing Page" - standard landing layout
-
-Set all to private status so they're not public but can be duplicated
+Full-width group with:
+- Colored background
+- Centered heading
+- Centered paragraph
+- Centered button
+- Large padding
 ```
 
----
+### Testimonial Pattern
+```
+Group with:
+- Border and padding
+- Quote paragraph
+- Author name (bold)
+- Author title (gray)
+```
 
-## Conclusion
+## Workflow Examples
 
-The key to success with the Gutenberg MCP Server is:
+### Workflow 1: Quick Page Creation
+1. "Create a page titled X with Y content"
+2. AI creates page as draft
+3. Review and publish
 
-1. **Analyze first** - Always use `analyze_reference_page` for complex designs
-2. **Be specific** - Clearly describe what you want
-3. **Iterate** - Create, review, refine, publish
-4. **Use drafts** - Never publish without reviewing
-5. **Leverage automation** - Let the AI handle repetitive tasks
+### Workflow 2: Design Replication
+1. "Analyze this page: [URL]"
+2. AI extracts structure
+3. "Create a new page with this design"
+4. AI creates page
+5. "Update the title and first paragraph"
+6. AI updates page
+7. Publish
 
-With these examples as a guide, you can efficiently create and manage WordPress pages with accurate designs and consistent quality.
+### Workflow 3: Iterative Development
+1. "Create a landing page for Product X"
+2. AI creates basic structure
+3. "Add a pricing section with 3 tiers"
+4. AI adds pricing
+5. "Make the hero section background darker"
+6. AI updates styling
+7. "Add testimonials section"
+8. AI adds testimonials
+9. Publish
+
+## Next Steps
+
+- Read [DESIGN_REPLICATION_GUIDE.md](DESIGN_REPLICATION_GUIDE.md) for advanced design replication
+- Check [README.md](README.md) for setup and configuration
+- Experiment with different prompts and layouts
+- Share your examples and improvements
+
+## Support
+
+If you have questions or need help:
+- Check the main [README.md](README.md)
+- Review the [DESIGN_REPLICATION_GUIDE.md](DESIGN_REPLICATION_GUIDE.md)
+- Test with simple pages first
+- Iterate and refine your prompts

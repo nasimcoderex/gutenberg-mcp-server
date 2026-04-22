@@ -1,0 +1,280 @@
+/* CartFlows-Inspired Landing Page Styles */
+
+/* Hero Section with Gradient */
+.hero-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    padding: 100px 20px !important;
+}
+
+.hero-gradient h1 {
+    color: #ffffff !important;
+    font-size: 56px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 24px !important;
+}
+
+.hero-gradient p {
+    color: #f3f4f6 !important;
+    font-size: 22px !important;
+    line-height: 1.6 !important;
+}
+
+/* CTA Buttons */
+.cta-button a {
+    background-color: #ffffff !important;
+    color: #6366f1 !important;
+    padding: 18px 40px !important;
+    border-radius: 8px !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.cta-button a:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Feature Badges */
+.feature-badge {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.feature-badge:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.feature-badge h4 {
+    color: #1f2937 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+/* Trust Section */
+.trust-section {
+    background-color: #f9fafb !important;
+    padding: 100px 20px !important;
+}
+
+.trust-section h2 {
+    color: #111827 !important;
+    font-size: 42px !important;
+    font-weight: 800 !important;
+}
+
+.stat-card {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: 40px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.2s !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px) !important;
+}
+
+.stat-card .stat-number {
+    font-size: 56px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    margin-bottom: 12px !important;
+}
+
+.stat-card.purple .stat-number {
+    color: #6366f1 !important;
+}
+
+.stat-card.violet .stat-number {
+    color: #8b5cf6 !important;
+}
+
+.stat-card.pink .stat-number {
+    color: #ec4899 !important;
+}
+
+.stat-card p {
+    color: #6b7280 !important;
+    font-size: 16px !important;
+}
+
+/* Feature Cards with Colored Backgrounds */
+.feature-card {
+    border-radius: 12px !important;
+    padding: 32px !important;
+    border: 2px solid !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+.feature-card.purple {
+    background-color: #faf5ff !important;
+    border-color: #e9d5ff !important;
+}
+
+.feature-card.red {
+    background-color: #fef3f2 !important;
+    border-color: #fecaca !important;
+}
+
+.feature-card.blue {
+    background-color: #f0f9ff !important;
+    border-color: #bae6fd !important;
+}
+
+.feature-card.green {
+    background-color: #f0fdf4 !important;
+    border-color: #bbf7d0 !important;
+}
+
+.feature-card.yellow {
+    background-color: #fffbeb !important;
+    border-color: #fde68a !important;
+}
+
+.feature-card.pink {
+    background-color: #fdf2f8 !important;
+    border-color: #fbcfe8 !important;
+}
+
+.feature-card .emoji {
+    font-size: 32px !important;
+    margin-bottom: 12px !important;
+}
+
+.feature-card h3 {
+    color: #111827 !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin: 12px 0 !important;
+}
+
+.feature-card p {
+    color: #6b7280 !important;
+    line-height: 1.6 !important;
+}
+
+/* Industry Cards */
+.industry-section {
+    background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%) !important;
+    padding: 100px 20px !important;
+}
+
+.industry-card {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: 40px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.industry-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+.industry-card .emoji {
+    font-size: 48px !important;
+    margin-bottom: 16px !important;
+}
+
+.industry-card h3 {
+    color: #111827 !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    margin: 16px 0 12px 0 !important;
+}
+
+.industry-card p {
+    color: #6b7280 !important;
+    line-height: 1.6 !important;
+}
+
+/* FAQ Section */
+.faq-section {
+    background-color: #ffffff !important;
+    padding: 100px 20px !important;
+}
+
+.faq-item {
+    background-color: #f9fafb !important;
+    border-radius: 12px !important;
+    padding: 32px !important;
+    margin-bottom: 24px !important;
+    transition: background-color 0.2s !important;
+}
+
+.faq-item:hover {
+    background-color: #f3f4f6 !important;
+}
+
+.faq-item h3 {
+    color: #111827 !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
+}
+
+.faq-item p {
+    color: #6b7280 !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+}
+
+/* Final CTA Section */
+.final-cta {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    padding: 100px 20px !important;
+}
+
+.final-cta h2 {
+    color: #ffffff !important;
+    font-size: 42px !important;
+    font-weight: 800 !important;
+}
+
+.final-cta p {
+    color: #f3f4f6 !important;
+    font-size: 20px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-gradient h1,
+    .trust-section h2,
+    .final-cta h2 {
+        font-size: 32px !important;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 40px !important;
+    }
+    
+    .feature-card,
+    .industry-card,
+    .faq-item {
+        margin-bottom: 20px !important;
+    }
+}
+
+/* General Typography */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}

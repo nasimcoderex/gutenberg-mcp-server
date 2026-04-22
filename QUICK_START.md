@@ -1,254 +1,92 @@
-# Quick Start Guide
-
-Get your Gutenberg MCP Server running in 5 minutes.
-
-## Prerequisites
-
-- ✅ WordPress site (local or remote)
-- ✅ Node.js 18+ installed
-- ✅ WordPress user with admin/editor permissions
-
-## Setup Steps
-
-### 1. Install WordPress Plugin (2 minutes)
-
-```bash
-# Copy plugin to WordPress
-cp -r gutenberg-mcp /path/to/wordpress/wp-content/plugins/
-
-# Or if using Local by Flywheel:
-cp -r gutenberg-mcp ~/Local\ Sites/your-site/app/public/wp-content/plugins/
-```
-
-Then activate in WordPress:
-- Go to **Plugins** → **Installed Plugins**
-- Find "Gutenberg MCP"
-- Click **Activate**
-
-### 2. Create Application Password (1 minute)
-
-In WordPress admin:
-1. Go to **Users** → **Profile**
-2. Scroll to **Application Passwords**
-3. Name it "MCP Server"
-4. Click **Add New Application Password**
-5. **Copy the password** (you won't see it again!)
-
-### 3. Install MCP Server (1 minute)
-
-```bash
-cd gutenberg-mcp-server
-npm install
-```
-
-### 4. Configure Your MCP Client (1 minute)
-
-#### For Kiro
-
-Create or edit `.kiro/settings/mcp.json` in your workspace:
-
-```json
-{
-  "mcpServers": {
-    "gutenberg": {
-      "command": "node",
-      "args": ["./gutenberg-mcp-server/index.js"],
-      "env": {
-        "WP_BASE_URL": "http://wpfunnels.local",
-        "WP_USER": "admin",
-        "WP_APP_PASSWORD": "paste-your-app-password-here"
-      }
-    }
-  }
-}
-```
-
-#### For Claude Desktop
-
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "gutenberg": {
-      "command": "node",
-      "args": ["/full/path/to/gutenberg-mcp-server/index.js"],
-      "env": {
-        "WP_BASE_URL": "http://wpfunnels.local",
-        "WP_USER": "admin",
-        "WP_APP_PASSWORD": "paste-your-app-password-here"
-      }
-    }
-  }
-}
-```
-
-#### For VSCode with MCP Extension
-
-Add to your VSCode settings or workspace `.vscode/settings.json`:
-
-```json
-{
-  "mcp.servers": {
-    "gutenberg": {
-      "command": "node",
-      "args": ["./gutenberg-mcp-server/index.js"],
-      "env": {
-        "WP_BASE_URL": "http://wpfunnels.local",
-        "WP_USER": "admin",
-        "WP_APP_PASSWORD": "paste-your-app-password-here"
-      }
-    }
-  }
-}
-```
+# Quick Start Guide - CartFlows-Inspired Landing Page
 
-**Important:** Replace these values:
-- `WP_BASE_URL`: Your WordPress site URL (no trailing slash)
-- `WP_USER`: Your WordPress username
-- `WP_APP_PASSWORD`: The application password you created
-
-### 5. Test It! (30 seconds)
+## ✅ Page Created Successfully!
 
-Restart your MCP client (Kiro, Claude Desktop, etc.), then try:
+Your WordPress page has been created with all the structure and CSS classes. Now you just need to add the styling.
 
-```
-List all WordPress pages on my site
-```
-
-If you see a list of pages, **you're ready!** 🎉
+## 🎨 Add the Styling (2 Minutes)
 
-## Your First Design Replication
+### Step 1: Copy the CSS
+Open the file `custom-styles.css` and copy ALL the content (Cmd+A, Cmd+C on Mac)
 
-Now let's replicate a page design:
+### Step 2: Add to WordPress
+1. Log into your WordPress admin: http://wpfunnels.local/wp-admin
+2. Go to **Appearance → Customize**
+3. Click **Additional CSS** in the left sidebar
+4. Paste the CSS you copied
+5. Click **Publish** button at the top
 
-```
-Analyze this reference page: https://rek433bjmg-staging.onrocket.site/ugc-for-woocommerce/
+### Step 3: View Your Page
+Visit: http://wpfunnels.local/?page_id=388
 
-Then create a new page with the same design and content
-```
+## 🎉 What You'll See
 
-The AI will:
-1. ✅ Fetch and analyze the reference page
-2. ✅ Extract all blocks with styling
-3. ✅ Create a new page on your WordPress site
-4. ✅ Give you the URL to review
+- **Purple gradient hero** with white text and CTA button
+- **Colorful statistics cards** (purple, violet, pink)
+- **Feature cards** with pastel backgrounds and borders
+- **Industry cards** with hover effects
+- **Styled FAQ section** with light gray backgrounds
+- **Final CTA** with matching purple gradient
 
-## Common Commands
+## 🔧 Alternative Methods
 
-### List Pages
-```
-Show me all draft pages
-```
+### Method 2: Use a Plugin
+1. Install "Simple Custom CSS" plugin
+2. Go to Appearance → Custom CSS
+3. Paste the CSS
+4. Save
 
-### Get a Specific Page
-```
-Get page ID 42 and show me its blocks
-```
+### Method 3: Add to Theme
+If you have a child theme:
+1. Open your child theme's `style.css`
+2. Paste the CSS at the bottom
+3. Save and upload
 
-### Create a Simple Page
-```
-Create a new page titled "About Us" with:
-- A heading "Welcome"
-- A paragraph "We are a great company"
-- Status: draft
-```
+## 📱 Features Included
 
-### Update a Page
-```
-Update page ID 42 to change the title to "New Title"
-```
+✅ Responsive design (mobile-friendly)
+✅ Hover animations on cards and buttons
+✅ Professional color palette
+✅ Smooth transitions
+✅ Modern typography
+✅ Gradient backgrounds
+✅ Shadow effects
 
-### Analyze Any WordPress Page
-```
-Analyze this page: https://example.com/any-wordpress-page
-```
+## 🎨 Customization
 
-### See Available Blocks
-```
-List all block types available on my WordPress site
-```
+Want to change colors? Edit these in the CSS:
 
-## Troubleshooting
+- **Primary Purple**: `#6366f1` (search and replace)
+- **Secondary Violet**: `#8b5cf6`
+- **Accent Pink**: `#ec4899`
 
-### "Authentication failed"
-- Double-check your Application Password (no spaces)
-- Verify your username is correct
-- Make sure the WordPress user has edit_pages permission
+## ❓ Troubleshooting
 
-### "Connection refused"
-- Is WordPress running? (for local sites)
-- Check WP_BASE_URL is correct
-- Try accessing `http://your-site.com/wp-json/` in a browser
+**CSS not showing?**
+- Clear browser cache (Cmd+Shift+R)
+- Clear WordPress cache if using a caching plugin
+- Make sure you clicked "Publish" in Customizer
 
-### "Plugin not found"
-- Make sure you activated the plugin in WordPress admin
-- Check the plugin folder is in `wp-content/plugins/gutenberg-mcp/`
+**Layout looks weird?**
+- Set page template to "Full Width" in page settings
+- Your theme might add extra padding
 
-### MCP Server Not Showing Up
-- Restart your MCP client completely
-- Check the JSON configuration has no syntax errors
-- Look for error messages in the client's console/logs
+**Need help?**
+- Check `STYLING_SOLUTION.md` for detailed guide
+- Inspect element in browser to debug
 
-### "Could not extract content"
-- The URL might not be a WordPress site
-- The site might block automated requests
-- Try a different reference URL
+## 📁 Files Reference
 
-## Next Steps
+- `cartflows-page-with-classes.html` - Page structure
+- `custom-styles.css` - All the styling ⭐ (ADD THIS TO WORDPRESS)
+- `STYLING_SOLUTION.md` - Detailed guide
+- `QUICK_START.md` - This file
 
-- 📖 Read [README.md](./README.md) for complete documentation
-- 🎨 Check [DESIGN_REPLICATION_GUIDE.md](./DESIGN_REPLICATION_GUIDE.md) for advanced techniques
-- 🔧 Explore all available tools and their parameters
+## 🚀 Ready to Publish?
 
-## Tips
+Once you're happy with the design:
+1. Go to the edit page: http://wpfunnels.local/wp-admin/post.php?post=388&action=edit
+2. Change status from "Draft" to "Publish"
+3. Click "Update"
 
-1. **Always create as draft first** - Review before publishing
-2. **Start with simple pages** - Test with basic content before complex designs
-3. **Use analyze_reference_page** - Don't manually recreate designs
-4. **Check your theme** - Some designs need specific themes or plugins
-5. **Keep credentials secure** - Never commit passwords to git
-
-## Support
-
-If you're stuck:
-1. Check WordPress is accessible: `http://your-site.com/wp-json/`
-2. Verify plugin is active in WordPress admin
-3. Test authentication with a REST client like Postman
-4. Check WordPress debug logs for errors
-
-## Example Session
-
-Here's a complete example workflow:
-
-**You:** List my WordPress pages
-
-**AI:** *Shows list of pages*
-
-**You:** Analyze https://rek433bjmg-staging.onrocket.site/ugc-for-woocommerce/
-
-**AI:** *Extracts 15 blocks including headings, paragraphs, images, and columns*
-
-**You:** Create a new page with that design, title it "UGC for WooCommerce"
-
-**AI:** *Creates page as draft*
-
-**You:** What's the URL?
-
-**AI:** http://wpfunnels.local/ugc-for-woocommerce/
-
-**You:** Perfect! Publish it.
-
-**AI:** *Updates status to publish*
-
-Done! 🚀
-
-## Security Note
-
-Application Passwords are safer than regular passwords because:
-- They can be revoked individually
-- They don't change your main password
-- They're specific to one application
-- You can create multiple for different tools
-
-Always keep them secure and never commit them to version control!
+Enjoy your beautiful landing page! 🎊

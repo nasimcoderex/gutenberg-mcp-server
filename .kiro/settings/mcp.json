@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "gutenberg": {
+      "command": "node",
+      "args": ["./index.js"],
+      "env": {
+        "WP_BASE_URL": "http://wpfunnels.local/",
+        "WP_USER": "admin",
+        "WP_APP_PASSWORD": "VS29 m0Bv lFrD Wqv0 XXU8 2OLP"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

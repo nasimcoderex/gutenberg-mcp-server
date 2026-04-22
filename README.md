@@ -1,15 +1,15 @@
 # Gutenberg MCP Server
 
-A Model Context Protocol (MCP) server for creating and managing WordPress pages with Gutenberg blocks. This server enables AI assistants to replicate page designs from reference URLs with accurate styling and content.
+A professional Model Context Protocol (MCP) server for creating and managing WordPress pages with Gutenberg blocks. This server enables AI assistants to create, update, and replicate WordPress page designs programmatically.
 
 ## Features
 
-- ✅ **Analyze Reference Pages** - Extract complete block structure from any WordPress page URL
-- ✅ **Create Pages** - Build new WordPress pages with Gutenberg blocks
+- ✅ **Create Pages** - Build WordPress pages with Gutenberg blocks via AI
 - ✅ **Update Pages** - Modify existing pages with new content and blocks
 - ✅ **List & Get Pages** - Browse and retrieve page information
+- ✅ **Analyze Reference Pages** - Extract complete block structure from any WordPress page URL
 - ✅ **Block Management** - Work with all registered Gutenberg block types
-- ✅ **Design Replication** - Accurately copy designs including colors, spacing, alignment, and layout
+- ✅ **Design Replication** - Copy designs including colors, spacing, alignment, and layout
 
 ## Installation
 
@@ -19,105 +19,89 @@ A Model Context Protocol (MCP) server for creating and managing WordPress pages 
 - WordPress site with REST API enabled
 - WordPress Application Password for authentication
 
-### Setup
+### 1. Install the WordPress Plugin
 
-1. **Install the WordPress Plugin**
+Copy the `gutenberg-mcp` folder to your WordPress plugins directory:
 
-   Copy the `gutenberg-mcp` folder to your WordPress plugins directory:
-   ```bash
-   cp -r gutenberg-mcp /path/to/wordpress/wp-content/plugins/
-   ```
+```bash
+cp -r gutenberg-mcp /path/to/wordpress/wp-content/plugins/
+```
 
-   Then activate the plugin in WordPress admin.
+Then activate the plugin in WordPress admin.
 
-2. **Create WordPress Application Password**
+### 2. Create WordPress Application Password
 
-   - Go to WordPress Admin → Users → Profile
-   - Scroll to "Application Passwords"
-   - Enter a name (e.g., "MCP Server") and click "Add New Application Password"
-   - Copy the generated password (you won't see it again!)
+1. Go to WordPress Admin → Users → Profile
+2. Scroll to "Application Passwords"
+3. Enter a name (e.g., "MCP Server") and click "Add New Application Password"
+4. Copy the generated password (format: `xxxx xxxx xxxx xxxx xxxx xxxx`)
 
-3. **Install MCP Server Dependencies**
+### 3. Install MCP Server Dependencies
 
-   ```bash
-   cd gutenberg-mcp-server
-   npm install
-   ```
+```bash
+cd gutenberg-mcp-server
+npm install
+```
 
-4. **Configure Environment Variables**
+### 4. Configure MCP Client
 
-   Create a `.env` file or set environment variables:
-   ```bash
-   export WP_BASE_URL="http://wpfunnels.local"
-   export WP_USER="your-username"
-   export WP_APP_PASSWORD="your-app-password"
-   ```
+Add to your MCP client configuration:
 
-5. **Configure MCP Client**
+**For Kiro** (`.kiro/settings/mcp.json`):
+```json
+{
+  "mcpServers": {
+    "gutenberg": {
+      "command": "node",
+      "args": ["./index.js"],
+      "env": {
+        "WP_BASE_URL": "http://your-site.local",
+        "WP_USER": "your-username",
+        "WP_APP_PASSWORD": "your-app-password"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
 
-   Add to your MCP client configuration (e.g., Claude Desktop, Kiro, VSCode):
-
-   **For Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
-   ```json
-   {
-     "mcpServers": {
-       "gutenberg": {
-         "command": "node",
-         "args": ["/path/to/gutenberg-mcp-server/index.js"],
-         "env": {
-           "WP_BASE_URL": "http://wpfunnels.local",
-           "WP_USER": "your-username",
-           "WP_APP_PASSWORD": "your-app-password"
-         }
-       }
-     }
-   }
-   ```
-
-   **For Kiro** (`.kiro/settings/mcp.json`):
-   ```json
-   {
-     "mcpServers": {
-       "gutenberg": {
-         "command": "node",
-         "args": ["./gutenberg-mcp-server/index.js"],
-         "env": {
-           "WP_BASE_URL": "http://wpfunnels.local",
-           "WP_USER": "your-username",
-           "WP_APP_PASSWORD": "your-app-password"
-         }
-       }
-     }
-   }
-   ```
+**For Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "gutenberg": {
+      "command": "node",
+      "args": ["/absolute/path/to/gutenberg-mcp-server/index.js"],
+      "env": {
+        "WP_BASE_URL": "http://your-site.local",
+        "WP_USER": "your-username",
+        "WP_APP_PASSWORD": "your-app-password"
+      }
+    }
+  }
+}
+```
 
 ## Usage
 
-### Replicate a Page Design
+### Create a Page from Scratch
 
-The most powerful feature - analyze a reference page and create an exact copy:
+```
+Create a WordPress page titled "About Us" with:
+- A heading "Welcome to Our Company"
+- A paragraph with company description
+- A two-column layout with team info
+```
+
+### Replicate a Page Design
 
 ```
 Analyze this reference page: https://example.com/reference-page
 Then create a new page with the same design and content
 ```
 
-The AI will:
-1. Use `analyze_reference_page` to extract all blocks with styling
-2. Use `create_page` to build the new page with identical structure
-3. Preserve colors, spacing, alignment, images, and layout
-
-### Create a Custom Page
-
-```
-Create a new WordPress page titled "About Us" with:
-- A heading "Welcome to Our Company"
-- A paragraph with company description
-- An image from https://example.com/logo.png
-- A two-column layout with team info
-```
-
-### Update Existing Pages
+### Update an Existing Page
 
 ```
 Update page ID 42:
@@ -125,80 +109,73 @@ Update page ID 42:
 - Add a call-to-action button at the end
 ```
 
-### List and Search Pages
+### List Pages
 
 ```
 Show me all draft pages
 ```
 
-```
-Find pages containing "product"
-```
-
-## Available Tools
-
-### `analyze_reference_page`
-Extract complete block structure from a WordPress page URL.
-
-**Input:**
-- `url` (string, required) - Full URL of the reference page
-
-**Output:**
-- `title` - Extracted page title
-- `blocks` - Array of parsed Gutenberg blocks with all attributes
-- `block_count` - Number of blocks found
-- `raw_content` - Raw block content
-
-**Example:**
-```json
-{
-  "url": "https://example.com/reference"
-}
-```
+## Available MCP Tools
 
 ### `create_page`
 Create a new WordPress page with Gutenberg blocks.
 
-**Input:**
+**Parameters:**
 - `title` (string, required) - Page title
 - `status` (string) - Page status: "draft", "publish", "pending", "private" (default: "draft")
-- `blocks` (array) - Array of block descriptors
+- `blocks` (array) - Array of block descriptors (optional, can use content instead)
+- `content` (string) - WordPress block format content (optional, alternative to blocks)
 
-**Block Structure:**
+**Example:**
 ```json
 {
-  "blockName": "core/paragraph",
-  "attrs": {
-    "align": "center",
-    "textColor": "primary",
-    "className": "custom-class"
-  },
-  "innerContent": "<p>Your content here</p>"
+  "title": "My New Page",
+  "status": "draft",
+  "content": "<!-- wp:paragraph -->\n<p>Hello World</p>\n<!-- /wp:paragraph -->"
 }
 ```
 
 ### `update_page`
 Update an existing page.
 
-**Input:**
+**Parameters:**
 - `id` (number, required) - Page ID
 - `title` (string) - New title
 - `status` (string) - New status
-- `blocks` (array) - Replacement blocks
+- `content` (string) - New content in WordPress block format
 
 ### `get_page`
 Get a page by ID with all blocks.
 
-**Input:**
+**Parameters:**
 - `id` (number, required) - Page ID
 
 ### `list_pages`
 List all pages with filtering.
 
-**Input:**
+**Parameters:**
 - `per_page` (number) - Results per page (default: 50)
 - `page` (number) - Page number (default: 1)
 - `search` (string) - Search term
+
+### `delete_page`
+Delete or trash a page.
+
+**Parameters:**
+- `id` (number, required) - Page ID
+- `force` (boolean) - Permanently delete (true) or move to trash (false, default)
+
+### `analyze_reference_page`
+Extract complete block structure from a WordPress page URL.
+
+**Parameters:**
+- `url` (string, required) - Full URL of the reference page
+
+**Returns:**
+- `title` - Extracted page title
+- `blocks` - Array of parsed Gutenberg blocks with all attributes
+- `block_count` - Number of blocks found
+- `raw_content` - Raw block content
 
 ### `list_block_types`
 List all registered Gutenberg block types available on your WordPress site.
@@ -206,62 +183,90 @@ List all registered Gutenberg block types available on your WordPress site.
 ### `render_blocks`
 Preview how blocks will render as HTML before saving.
 
-**Input:**
-- `blocks` (array, required) - Array of block descriptors
+**Parameters:**
+- `blocks` (array, required) - Array of block descriptors to render
 
-## Common Block Types
+## WordPress Block Format
 
-### Headings
-```json
-{
-  "blockName": "core/heading",
-  "attrs": { "level": 2, "textAlign": "center" },
-  "innerContent": "<h2>My Heading</h2>"
-}
+WordPress uses a special comment format for blocks:
+
+```html
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">This is centered text</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":2} -->
+<h2>This is a heading</h2>
+<!-- /wp:heading -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns">
+  <!-- wp:column -->
+  <div class="wp-block-column">Column 1</div>
+  <!-- /wp:column -->
+  
+  <!-- wp:column -->
+  <div class="wp-block-column">Column 2</div>
+  <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
 ```
 
-### Paragraphs
-```json
-{
-  "blockName": "core/paragraph",
-  "attrs": { "align": "left", "textColor": "primary" },
-  "innerContent": "<p>My paragraph text</p>"
-}
+## Common Block Examples
+
+### Heading
+```html
+<!-- wp:heading {"level":2,"textAlign":"center"} -->
+<h2 class="has-text-align-center">My Heading</h2>
+<!-- /wp:heading -->
 ```
 
-### Images
-```json
-{
-  "blockName": "core/image",
-  "attrs": {
-    "url": "https://example.com/image.jpg",
-    "alt": "Description",
-    "width": 800,
-    "height": 600
-  },
-  "innerContent": "<figure><img src=\"...\"/></figure>"
-}
+### Paragraph
+```html
+<!-- wp:paragraph {"style":{"color":{"text":"#ff0000"}}} -->
+<p class="has-text-color" style="color:#ff0000">Red text</p>
+<!-- /wp:paragraph -->
 ```
 
-### Columns Layout
-```json
-{
-  "blockName": "core/columns",
-  "attrs": {},
-  "innerContent": "<!-- Column blocks go here -->"
-}
+### Button
+```html
+<!-- wp:button {"backgroundColor":"primary"} -->
+<div class="wp-block-button">
+  <a class="wp-block-button__link has-primary-background-color">Click Me</a>
+</div>
+<!-- /wp:button -->
 ```
 
-### Groups (Containers)
-```json
-{
-  "blockName": "core/group",
-  "attrs": {
-    "backgroundColor": "light-gray",
-    "className": "custom-container"
-  },
-  "innerContent": "<div><!-- Inner blocks --></div>"
-}
+### Columns
+```html
+<!-- wp:columns -->
+<div class="wp-block-columns">
+  <!-- wp:column -->
+  <div class="wp-block-column">
+    <!-- wp:paragraph -->
+    <p>Column 1 content</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+  
+  <!-- wp:column -->
+  <div class="wp-block-column">
+    <!-- wp:paragraph -->
+    <p>Column 2 content</p>
+    <!-- /wp:paragraph -->
+  </div>
+  <!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+```
+
+### Group (Container)
+```html
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"40px","bottom":"40px"}},"color":{"background":"#f0f0f0"}}} -->
+<div class="wp-block-group has-background" style="background-color:#f0f0f0;padding-top:40px;padding-bottom:40px">
+  <!-- Inner blocks go here -->
+</div>
+<!-- /wp:group -->
 ```
 
 ## Troubleshooting
@@ -270,11 +275,6 @@ Preview how blocks will render as HTML before saving.
 - Verify your Application Password is correct
 - Check that the WordPress user has `edit_pages` capability
 - Ensure REST API is enabled on your WordPress site
-
-### Content Not Extracted
-- The reference page might not be a WordPress site
-- Try accessing the page directly in a browser to verify it loads
-- Check if the site blocks automated requests
 
 ### Blocks Not Rendering Correctly
 - Use `list_block_types` to see available blocks on your site
@@ -286,44 +286,6 @@ Preview how blocks will render as HTML before saving.
 - For local development, ensure WordPress is running
 - Check firewall settings if using remote WordPress
 
-## Advanced Usage
-
-### Working with Custom Blocks
-
-If your WordPress site has custom blocks (from plugins or themes), they'll appear in `list_block_types`. Use them like core blocks:
-
-```json
-{
-  "blockName": "acf/testimonial",
-  "attrs": {
-    "name": "John Doe",
-    "rating": 5
-  },
-  "innerContent": "<div>...</div>"
-}
-```
-
-### Batch Operations
-
-Create multiple pages efficiently:
-
-```
-Analyze these 3 reference pages and create copies:
-1. https://example.com/page1
-2. https://example.com/page2
-3. https://example.com/page3
-```
-
-### Preserving Styles
-
-The `analyze_reference_page` tool extracts:
-- CSS classes (including theme-specific classes)
-- Inline styles
-- Color schemes (text and background)
-- Alignment and spacing
-- Typography settings
-- Layout structures (columns, groups, containers)
-
 ## Security Notes
 
 - Application Passwords are more secure than regular passwords
@@ -331,13 +293,30 @@ The `analyze_reference_page` tool extracts:
 - Never commit credentials to version control
 - Use environment variables for sensitive data
 
+## Project Structure
+
+```
+gutenberg-mcp-server/
+├── index.js                    # Main MCP server
+├── package.json                # Dependencies
+├── .env.example                # Environment variables template
+├── README.md                   # This file
+├── EXAMPLES.md                 # Usage examples
+├── DESIGN_REPLICATION_GUIDE.md # Guide for replicating designs
+└── CHANGELOG.md                # Version history
+
+gutenberg-mcp/
+└── gutenberg-mcp.php           # WordPress plugin
+```
+
 ## Contributing
 
-To improve the MCP server:
+Contributions are welcome! Please:
 
-1. **Add New Tools** - Edit `index.js` to add new capabilities
-2. **Enhance Block Parsing** - Improve `gmcp_html_to_blocks()` in the plugin
-3. **Support More Block Types** - Extend `gmcp_node_to_block()` mapping
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
@@ -350,3 +329,9 @@ For issues or questions:
 - Verify plugin is activated in WordPress admin
 - Test authentication with a REST API client like Postman
 - Check WordPress error logs for detailed error messages
+
+## Version
+
+Current version: 1.0.0
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
