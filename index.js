@@ -32,6 +32,17 @@ async function wpRequest(method, path, body) {
 
 const TOOLS = [
   {
+    name: "analyze_reference_page",
+    description: "Analyze a reference WordPress page URL to extract complete block structure with all styling, attributes, and content. Use this to replicate designs accurately.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        url: { type: "string", description: "Full URL of the reference WordPress page to analyze" },
+      },
+      required: ["url"],
+    },
+  },
+  {
     name: "list_pages",
     description: "List all WordPress pages with their block count and metadata",
     inputSchema: {
@@ -169,6 +180,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     let result;
 
     switch (name) {
+      case "analyze_reference_page": {
+        result = await wpRequest("POST", "/analyze-reference", { url: args.url });
+        break;
+      }
       case "list_pages": {
         const params = new URLSearchParams();
         if (args.per_page) params.set("per_page", args.per_page);
